@@ -1,0 +1,17 @@
+{
+  "name": "ATA Quest: Your 4-Year Journey",
+  "short_name": "ATA Quest",
+  "description": "Explore the Advanced Technologies Academy: walk the 4-year path, pass the course quizzes, and try out four real careers.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#12112a",
+  "theme_color": "#3a2a6e",
+  "categories": ["education", "games"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -515,13 +515,85 @@
     .small-board .logo-card{transform:scale(.68);margin:-34px 0;}
     .lmnotes li{font-size:14px;padding:7px 10px;}
   }
+
+  /* ================= TEACHER CHARACTER ================= */
+  #player .sprite{font-size:0;line-height:0;}
+  #player.walking .sprite{animation:none;}
+  #player.hit .sprite{animation:ouch .5s ease;filter:drop-shadow(0 0 10px var(--danger));}
+  #player .tch{width:54px;height:108px;}
+  .tch{display:block;overflow:visible;}
+  .tch .armL{transform-origin:28.5px 68px;} .tch .foreL{transform-origin:28.5px 84px;}
+  .tch .armR{transform-origin:71.5px 68px;} .tch .foreR{transform-origin:71.5px 84px;}
+  .tch .legL{transform-origin:43.5px 108px;} .tch .legR{transform-origin:56.5px 108px;}
+  .tch .head{transform-origin:50px 58px;}
+  .tch .armL,.tch .armR,.tch .foreL,.tch .foreR,.tch .legL,.tch .legR,.tch .head,.tch .pupils{transition:transform .15s ease;}
+  .tch .eyes{transform-origin:50px 33px;animation:tchblink 4.5s infinite;}
+  .tch .upper{animation:tchbreathe 2.6s ease-in-out infinite;}
+  .tch .xeyes,.tch .mouthO,.tch .stars,.tch .cap{display:none;}
+  .tch .stars{transform-origin:50px 6px;animation:tchspin 1.2s linear infinite;}
+  @keyframes tchblink{0%,93%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+  @keyframes tchbreathe{50%{transform:translateY(1px)}}
+  @keyframes tchspin{to{transform:rotate(360deg)}}
+  .walking .tch .legL{animation:tchleg .5s ease-in-out infinite alternate;}
+  .walking .tch .legR{animation:tchleg .5s ease-in-out infinite alternate-reverse;}
+  .walking .tch .armL{animation:tcharm .5s ease-in-out infinite alternate;}
+  .walking .tch .armR{animation:tcharm .5s ease-in-out infinite alternate;}
+  .walking .tch .upper{animation:tchstep .25s ease-in-out infinite alternate;}
+  @keyframes tchleg{from{transform:rotate(15deg)}to{transform:rotate(-15deg)}}
+  @keyframes tcharm{from{transform:rotate(9deg)}to{transform:rotate(-9deg)}}
+  @keyframes tchstep{to{transform:translateY(-2.5px)}}
+  .jumping .tch .armL{transform:rotate(145deg);} .jumping .tch .armR{transform:rotate(-145deg);}
+  .jumping .tch .foreL{transform:rotate(-20deg);} .jumping .tch .foreR{transform:rotate(20deg);}
+  .jumping .tch .legL{transform:rotate(14deg);} .jumping .tch .legR{transform:rotate(-14deg);}
+  .jumping .tch .smile{display:none;} .jumping .tch .mouthO{display:inline;}
+  .hit .tch .head{transform:rotate(-14deg);}
+  .hit .tch .armL{transform:rotate(60deg);} .hit .tch .armR{transform:rotate(-60deg);}
+  .hit .tch .eyes,.hit .tch .smile{display:none;}
+  .hit .tch .xeyes,.hit .tch .mouthO,.hit .tch .stars{display:inline;}
+  .thinking .tch .armR{transform:rotate(25deg);} .thinking .tch .foreR{transform:rotate(135deg);}
+  .thinking .tch .head{transform:rotate(5deg);} .thinking .tch .pupils{transform:translate(-1.3px,-1.6px);}
+  .celebrating .tch{animation:tchhop .32s ease-in-out infinite alternate;}
+  .celebrating .tch .armL{transform:rotate(155deg);} .celebrating .tch .armR{transform:rotate(-155deg);}
+  .celebrating .tch .foreL{transform:rotate(-15deg);} .celebrating .tch .foreR{transform:rotate(15deg);}
+  @keyframes tchhop{to{transform:translateY(-7%)}}
+  .waving .tch .armR{transform:rotate(-100deg);}
+  .waving .tch .foreR{animation:tchwave .4s ease-in-out infinite alternate;}
+  @keyframes tchwave{from{transform:rotate(-55deg)}to{transform:rotate(-90deg)}}
+  .graduate .tch .cap{display:inline;}
+
+  /* host spots: title screen and graduation */
+  .host{position:relative;display:flex;justify-content:center;flex-shrink:0;}
+  .host .tch{width:66px;height:132px;filter:drop-shadow(0 6px 0 rgba(0,0,0,.3));}
+  #gradHost .tch{width:80px;height:160px;}
+  .hostbubble{position:absolute;left:calc(50% + 26px);top:-4px;white-space:nowrap;background:var(--cream);color:var(--navy-950);
+    font-size:11px;padding:10px 13px;border-radius:10px;transform-origin:0 100%;animation:bubblepop .5s .35s cubic-bezier(.3,1.6,.6,1) both;
+    box-shadow:0 5px 0 rgba(0,0,0,.3);}
+  .hostbubble::after{content:'';position:absolute;left:8px;top:100%;border:7px solid transparent;border-top-color:var(--cream);border-left-color:var(--cream);}
+  @keyframes bubblepop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+  @media (min-width:1100px) and (min-height:640px){
+    #introHost{position:absolute;left:max(24px,calc(50% - 545px));bottom:6vh;}
+    #introHost .tch{width:140px;height:280px;}
+    #introHost .hostbubble{font-size:14px;left:105px;top:-18px;padding:13px 16px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tch *, .tch{animation:none !important;}
+  }
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="tchPlaid" width="10" height="10" patternUnits="userSpaceOnUse">
+    <rect width="10" height="10" fill="#b8322c"/>
+    <rect width="10" height="3.5" fill="#3a0f0d" opacity=".55"/>
+    <rect width="3.5" height="10" fill="#3a0f0d" opacity=".55"/>
+    <rect x="6" width="1" height="10" fill="#f3d9c4" opacity=".35"/>
+    <rect y="6" width="10" height="1" fill="#f3d9c4" opacity=".35"/>
+  </pattern></defs></svg>
 <div id="intro">
   <div class="brand"><img class="brandimg" alt="Advanced Technologies Academy, Caldwell Applied Sciences Academy"></div>
-  <div class="badge pixel">🤖 ATA QUEST</div>
+  <div class="host waving" id="introHost"><div class="hostbubble pixel">Hey Everybody!</div><span class="tchslot"></span></div>
+  <div class="badge pixel">ATA QUEST</div>
   <h1 class="pixel">Your 4&#8209;Year Journey<br>Through the<br>Advanced Technologies Academy</h1>
   <p class="sub">Walk the path from 9th grade to graduation. Read each course card, discover a career it leads to, and pass its quick quiz to unlock the next station &mdash; all while jumping over the flying arrows on the trail. Get hit and you're sent back to the last station!</p>
   <div class="keys">
@@ -592,7 +664,7 @@
 <div id="finale">
   <div class="inner">
     <div class="brand sm"><img class="brandimg" alt="Advanced Technologies Academy, Caldwell Applied Sciences Academy"></div>
-    <div class="grad">🎓</div>
+    <div class="host celebrating graduate" id="gradHost"><span class="tchslot"></span></div>
     <h1 class="pixel">YOU DID IT!<br>WELCOME TO GRADUATION DAY</h1>
     <p class="sub" style="color:var(--cream-dim);max-width:480px;line-height:1.6;margin:0;">Four years at the Advanced Technologies Academy, and you're walking out with two credentials at once.</p>
     <div class="diplomas">
@@ -964,6 +1036,73 @@
   var SAFE_RADIUS  = 45;    // px around each station where arrows won't fire
   var STATION_SNAP = 16;    // px: how close counts as "standing on" a station
 
+
+  /* ================= TEACHER CHARACTER (SVG) =================
+     Poses come from CSS classes on a parent element:
+     walking, jumping, hit, thinking, celebrating, waving, graduate */
+  var TEACHER_SVG = (function(){
+    var SKIN = '#f3cba8', SKIN_LINE = '#d9a47e', BEARD = '#1c1a1a', LINE = '#5a1714';
+    function arm(s, cx){
+      return '<g class="arm' + s + '">' +
+        '<rect x="' + (cx - 6.5) + '" y="63" width="13" height="24" rx="6.5" fill="url(#tchPlaid)" stroke="' + LINE + '" stroke-width="1.2"/>' +
+        '<g class="fore' + s + '">' +
+          '<rect x="' + (cx - 6) + '" y="80" width="12" height="20" rx="6" fill="url(#tchPlaid)" stroke="' + LINE + '" stroke-width="1.2"/>' +
+          '<rect x="' + (cx - 6) + '" y="96" width="12" height="5" rx="2" fill="#c9463f" stroke="' + LINE + '" stroke-width="1"/>' +
+          '<circle cx="' + cx + '" cy="106" r="6" fill="' + SKIN + '" stroke="' + SKIN_LINE + '" stroke-width="1"/>' +
+        '</g></g>';
+    }
+    function leg(s, x, shoeX){
+      return '<g class="leg' + s + '">' +
+        '<rect x="' + x + '" y="106" width="13" height="80" rx="4" fill="#3f5f94"/>' +
+        '<rect x="' + (x + (s === 'L' ? 9 : 1.5)) + '" y="110" width="1.4" height="66" fill="#2e4775"/>' +
+        '<rect x="' + x + '" y="176" width="13" height="5" fill="#4f71a8"/>' +
+        '<rect x="' + shoeX + '" y="182" width="20" height="9" rx="4.5" fill="#7b4a26"/>' +
+        '<rect x="' + shoeX + '" y="189" width="20" height="3.5" rx="1.7" fill="#3e2412"/>' +
+      '</g>';
+    }
+    var star = 'l1.5 3 3 .5 -2.2 2.2 .6 3.2 -2.9 -1.5 -2.9 1.5 .6 -3.2 -2.2 -2.2 3 -.5z';
+    var head =
+      '<g class="head">' +
+        '<ellipse cx="31.5" cy="36" rx="4" ry="6" fill="' + SKIN + '" stroke="' + SKIN_LINE + '"/>' +
+        '<ellipse cx="68.5" cy="36" rx="4" ry="6" fill="' + SKIN + '" stroke="' + SKIN_LINE + '"/>' +
+        '<ellipse cx="50" cy="33" rx="19" ry="22" fill="' + SKIN + '" stroke="' + SKIN_LINE + '" stroke-width="1"/>' +
+        '<ellipse cx="42" cy="17" rx="7" ry="3.2" fill="#fff" opacity=".45" transform="rotate(-18 42 17)"/>' +
+        '<rect x="37.5" y="26" width="9.5" height="3" rx="1.5" fill="' + BEARD + '"/>' +
+        '<rect x="53" y="26" width="9.5" height="3" rx="1.5" fill="' + BEARD + '"/>' +
+        '<g class="eyes"><g class="pupils">' +
+          '<ellipse cx="42.5" cy="33" rx="2.4" ry="3" fill="' + BEARD + '"/><ellipse cx="57.5" cy="33" rx="2.4" ry="3" fill="' + BEARD + '"/>' +
+          '<circle cx="43.2" cy="32" r=".8" fill="#fff"/><circle cx="58.2" cy="32" r=".8" fill="#fff"/>' +
+        '</g></g>' +
+        '<g class="xeyes" stroke="' + BEARD + '" stroke-width="1.8" stroke-linecap="round"><path d="M40 30.5 l5 5 M45 30.5 l-5 5 M55 30.5 l5 5 M60 30.5 l-5 5"/></g>' +
+        '<path d="M50 34 Q47.5 40 49.5 42 Q51.5 43 53 41" fill="none" stroke="#c98d68" stroke-width="1.4" stroke-linecap="round"/>' +
+        '<path d="M31 32 Q30 58 50 65 Q70 58 69 32 Q68 43 62 45.5 Q56 43.5 50 44.5 Q44 43.5 38 45.5 Q32 43 31 32 Z" fill="' + BEARD + '"/>' +
+        '<path class="smile" d="M44.5 49.5 Q50 55.5 55.5 49.5 Q50 51.2 44.5 49.5 Z" fill="#fff"/>' +
+        '<ellipse class="mouthO" cx="50" cy="51.5" rx="2.6" ry="3.2" fill="#7a2424"/>' +
+        '<g class="stars" fill="#e8b84b"><path d="M34 4 ' + star + '"/><path d="M64 2 ' + star + '"/><path d="M49 -2 ' + star + '"/></g>' +
+        '<g class="cap"><rect x="36" y="12" width="28" height="9" fill="' + BEARD + '"/>' +
+          '<polygon points="50,1 81,11 50,21 19,11" fill="#26232e"/>' +
+          '<path d="M50 11 L75 15 L75 29" stroke="#e8b84b" stroke-width="1.6" fill="none"/><circle cx="75" cy="30" r="2.4" fill="#e8b84b"/></g>' +
+      '</g>';
+    return '<svg class="tch" viewBox="0 0 100 200" aria-hidden="true">' +
+      '<ellipse cx="50" cy="195" rx="24" ry="4" fill="rgba(0,0,0,.28)"/>' +
+      leg('L', 37, 31) + leg('R', 50, 49) +
+      '<g class="upper">' +
+        '<rect x="45" y="50" width="10" height="13" fill="#e6b994"/>' +
+        '<path d="M27 72 Q27 63 38 61 L62 61 Q73 63 73 72 L75 121 Q50 126 25 121 Z" fill="url(#tchPlaid)" stroke="' + LINE + '" stroke-width="1.2"/>' +
+        '<path d="M44 61 L50 70 L56 61 Z" fill="#2b2b33"/>' +
+        '<path d="M39 60 L50 71 L45 73 L37 63 Z" fill="#c9463f" stroke="' + LINE + '" stroke-width="1"/>' +
+        '<path d="M61 60 L50 71 L55 73 L63 63 Z" fill="#c9463f" stroke="' + LINE + '" stroke-width="1"/>' +
+        '<line x1="50" y1="71" x2="50" y2="123" stroke="' + LINE + '" stroke-width="1.2"/>' +
+        '<g fill="#f1e6d6"><circle cx="50" cy="80" r="1.3"/><circle cx="50" cy="92" r="1.3"/><circle cx="50" cy="104" r="1.3"/><circle cx="50" cy="116" r="1.3"/></g>' +
+        '<rect x="55" y="76" width="11" height="10" rx="1.5" fill="url(#tchPlaid)" stroke="' + LINE + '" stroke-width="1"/>' +
+        '<path d="M55 79 h11" stroke="' + LINE + '" stroke-width="1"/>' +
+        arm('L', 28.5) + arm('R', 71.5) +
+        head +
+      '</g></svg>';
+  })();
+  Array.prototype.forEach.call(document.querySelectorAll('.tchslot'), function(s){ s.innerHTML = TEACHER_SVG; });
+  var waveUntil = 0, celebrateUntil = 0;
+
   /* ================= ELEMENTS ================= */
   var game = document.getElementById('game');
   var track = document.getElementById('track');
@@ -974,7 +1113,7 @@
 
   var player = document.createElement('div');
   player.id = 'player';
-  player.innerHTML = '<div id="bubble" class="pixel"></div><span class="flipper"><span class="sprite">🤖</span></span>';
+  player.innerHTML = '<div id="bubble" class="pixel"></div><span class="flipper"><span class="sprite">' + TEACHER_SVG + '</span></span>';
   var bubble = player.querySelector('#bubble');
 
   var ARROW_SVG = '<svg viewBox="0 0 48 14" aria-hidden="true">' +
@@ -1440,6 +1579,11 @@
     player.style.left = p.x + 'px';
     player.style.top = (p.y - standOffset() - jumpLift()) + 'px';
     player.classList.toggle('walking', moving && jumpT < 0);
+    var tnow = performance.now(), still = !moving && jumpT < 0 && !respawning;
+    player.classList.toggle('jumping', jumpT >= 0);
+    player.classList.toggle('thinking', overlay.classList.contains('show'));
+    player.classList.toggle('waving', still && tnow < waveUntil);
+    player.classList.toggle('celebrating', still && tnow < celebrateUntil);
     player.classList.toggle('left', facing < 0);
     player.classList.toggle('invuln', invuln > 0 && !respawning);
     arrows.forEach(function(a){ a.el.style.left = a.x + 'px'; a.el.style.top = a.y + 'px'; });
@@ -1765,6 +1909,7 @@
       setTimeout(function(){ finale.classList.add('show'); sfx('fanfare'); }, 350);
     } else if (!wasDone){
       flash('PATH UNLOCKED ▸', false, 1.5);
+      celebrateUntil = performance.now() + 1500;
       setTimeout(function(){ sfx('unlock'); }, 120);
     }
   }
@@ -2854,6 +2999,8 @@
   function startGame(){
     intro.style.display = 'none';
     initAudio(); sfx('start');
+    waveUntil = performance.now() + 2400;
+    flash('👋 HEY EVERYBODY!', false, 2.2);
     render(true);
   }
   document.getElementById('startBtn').addEventListener('click', startGame);
